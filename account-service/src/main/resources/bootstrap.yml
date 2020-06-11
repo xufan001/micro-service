@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: account-service #服务名称
+  ###开始配置consul的服务注册
+  cloud:
+    consul:
+      host: 127.0.0.1 #consul服务器的主机地址
+      port: 8500 #consul服务器的ip地址
+      config:
+        # watch选项为配置监视功能，主要监视配置的改变
+        watch:
+          enabled: true
+          delay: 10000
+          wait-time: 30
+        # 表示如果没有发现配置，是否抛出异常，true为是，false为否，当为false时，consul会打印warn级别的日志信息
+        fail-fast: true
+        # 表示使用的配置格式
+        format: yaml
+        name: ${spring.application.name}
+        profile-separator: /
+  profiles:
+    active: local
